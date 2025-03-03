@@ -43,3 +43,33 @@ async def main():
 # Запускаем бота
 if __name__ == "__main__":
     asyncio.run(main())
+
+import os
+import asyncio
+from aiohttp import web
+
+# Функция для обработки HTTP-запросов (пинг от UptimeRobot)
+async def handle(request):
+    return web.Response(text="Bot is running!")
+
+# Запуск веб-сервера
+async def run_webserver():
+    app = web.Application()
+    app.router.add_get("/", handle)
+    runner = web.AppRunner(app)
+    await runner.setup()
+
+    # Получаем порт от Render
+    port = int(os.getenv("PORT", 8080))
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    await site.start()
+
+# Добавляем веб-сервер в asyncio
+async def main():
+    asyncio.create_task(run_webserver())  # Запускаем веб-сервер
+    print("✅ Web server is running to prevent Render from sleeping")
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
