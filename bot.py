@@ -9,7 +9,7 @@ from aiogram.exceptions import TelegramBadRequest
 logging.basicConfig(level=logging.INFO)
 
 # Вставь сюда свой токен
-TOKEN = "8154518874:AAGrkLYlLq5f4ZQEJXLQ1LlswqsLLd4lOG4"
+TOKEN = ""
 
 # Создаём объект бота и диспетчер
 bot = Bot(token=TOKEN)
